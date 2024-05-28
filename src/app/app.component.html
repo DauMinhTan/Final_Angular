@@ -1,0 +1,51 @@
+<div class="container">
+  <div class="left">
+    <label for="tieude">nhap tieu de:</label>
+    <input id="tieude " type="text" [(ngModel)]="tieude" />
+    <label for="soluongtap">nhap so luong tap:</label>
+    <input id="soluongtap" type="text" [(ngModel)]="soluongtap" />
+  </div>
+  <div class="right">
+    <label for="phathanh">nhap nam phat hanh:</label>
+    <input id="phathanh" type="text" [(ngModel)]="phathanh" />
+    <label for="mieuta">nhap mieu ta:</label>
+    <input id="mieuta" type="text" [(ngModel)]="mieuta" />
+    <label for="lichchieu">nhap lich chieu:</label>
+    <input id="lichchieu" type="text" [(ngModel)]="lichchieu" />
+  </div>
+</div>
+
+<div class="actions">
+  @if (action === "add") {
+    <button (click)="addFilm()" class="addBtn">Add</button>
+  } @else {
+    <button (click)="updateFilm()" class="updateBtn">Update</button>
+  }
+</div>
+
+<table>
+  <thead>
+    <tr>
+      <td>tieu de</td>
+      <td>so luong tap</td>
+      <td>phat hanh</td>
+      <td>mieu ta</td>
+      <td>lich chieu</td>
+    </tr>
+  </thead>
+  <tbody>
+    @for (phim of listFilm; track $index) {
+      <tr>
+        <td>{{ phim.tieude }}</td>
+        <td>{{ phim.soluongtap }}</td>
+        <td>{{ phim.phathanh }}</td>
+        <td>{{ phim.mieuta }}</td>
+        <td>{{ phim.lichchieu }}</td>
+        <td>
+          <button (click)="editFilm(phim)" class="editBtn">Edit</button>
+          <button (click)="deleteFilm(phim.tieude)" class="deleteBtn">Delete</button>
+        
+      </tr>
+    }
+  </tbody>
+</table>
