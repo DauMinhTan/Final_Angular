@@ -18,27 +18,41 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     this.getAllFilms();
   }
-
+  
+  
+  id = '';
   tieude = '';
   soluongtap = '';
   phathanh = '';
   mieuta = '';
   lichchieu = '';
-
+  search = '';
   getAllFilms() {
     this.http.get('http://localhost:2304/phim').subscribe((data) => {
       this.listFilm = data as phim[];
     });
+  } 
+ 
+  getById(id: number): void {
+    this.http.get('http://localhost:2304/phim/' + id).subscribe((data) => {
+      this.listFilm = data as phim[];
+    });
   }
-
-
+  searchFilm(): void {
+    const search = parseInt(this.search) 
+    this.http.get('http://localhost:2304/phim/' + search).subscribe((data) => {
+      this.listFilm = data as phim[];
+  });
+  }
+ 
   addFilm() {
     const newFilm = {
+      id: this.id,
       tieude: this.tieude,
       soluongtap: this.soluongtap,
       phathanh: this.phathanh,
       mieuta: this.mieuta,
-      lichchieu: this.lichchieu,  
+      lichchieu: this.lichchieu,
     };
     this.http
       .post('http://localhost:2304/phim', newFilm)
@@ -48,6 +62,7 @@ export class AppComponent implements OnInit {
 
   updateFilm() {
     const newFilm = {
+      id: this.id,
       tieude: this.tieude,
       soluongtap: this.soluongtap,
       phathanh: this.phathanh,
@@ -55,7 +70,7 @@ export class AppComponent implements OnInit {
       lichchieu: this.lichchieu,
     };
     this.http
-      .put('http://localhost:2304/phim/' + this.tieude, newFilm)
+      .put('http://localhost:2304/phim/' + this.id, newFilm)
       .subscribe((data) => {});
     this.clear();
     
@@ -68,6 +83,7 @@ export class AppComponent implements OnInit {
   }
 
   editFilm(phim: phim) {
+    this.id = phim.id.toString();
     this.tieude = phim.tieude;
     this.soluongtap = phim.soluongtap.toString();
     this.phathanh = phim.phathanh;
@@ -75,18 +91,22 @@ export class AppComponent implements OnInit {
     this.lichchieu = phim.lichchieu;
     this.action = 'update';
   }
+ 
 
   clear() {
+    this.id = '';
     this.tieude = '';
     this.soluongtap = '';
     this.phathanh = '';
     this.mieuta = '';
     this.lichchieu = '';
     this.action = 'add';
+
   }
 }
 
 export interface phim {
+  id: number;
   tieude: string;
   soluongtap: number;
   phathanh: string;

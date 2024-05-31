@@ -1,51 +1,66 @@
+<div class="main"><label for="id">THÔNG TIN CHI TIẾT VỀ PHIM</label></div>
 <div class="container">
   <div class="left">
-    <label for="tieude">nhap tieu de:</label>
-    <input id="tieude " type="text" [(ngModel)]="tieude" />
-    <label for="soluongtap">nhap so luong tap:</label>
-    <input id="soluongtap" type="text" [(ngModel)]="soluongtap" />
+    <label for="id"> ID:</label>
+    <input class="leftId" id="id" type="text" placeholder="Nhập ID " [(ngModel)]="id" />
+    <label for="tieude"> Tên phim:</label>
+    <input class="leftTieude" id="tieude " type="text" placeholder="Nhập tiêu đề" [(ngModel)]="tieude" />
+    <label for="soluongtap"> Số lượng tập:</label>
+    <input class="leftSoluong" id="soluongtap"  type="text" placeholder="Nhập số lượng tập" [(ngModel)]="soluongtap" />
   </div>
   <div class="right">
-    <label for="phathanh">nhap nam phat hanh:</label>
-    <input id="phathanh" type="text" [(ngModel)]="phathanh" />
-    <label for="mieuta">nhap mieu ta:</label>
-    <input id="mieuta" type="text" [(ngModel)]="mieuta" />
-    <label for="lichchieu">nhap lich chieu:</label>
-    <input id="lichchieu" type="text" [(ngModel)]="lichchieu" />
+    <label for="phathanh"> Năm phát hành:</label>
+    <input class="rightNgay" id="phathanh" type="text" placeholder="Nhập ngày ra mắt" [(ngModel)]="phathanh" />
+    <label for="mieuta"> Miêu tả:</label>
+    <input class="rightMota" id="mieuta" type="text" placeholder="Nhập mô tả về phim" [(ngModel)]="mieuta" />
+    <label for="lichchieu"> Lịch chiếu:</label>
+    <input class="rightTime" id="lichchieu" type="text" placeholder="Nhập thời gian ra phim" [(ngModel)]="lichchieu" />
   </div>
 </div>
 
 <div class="actions">
   @if (action === "add") {
-    <button (click)="addFilm()" class="addBtn">Add</button>
-  } @else {
-    <button (click)="updateFilm()" class="updateBtn">Update</button>
-  }
+    <button (click)="addFilm()" class="addBtn">THÊM BỘ PHIM MỚI</button>
+  } @else{
+    <button (click)="updateFilm()" class="updateBtn">CẬP NHẬT THÔNG TIN PHIM</button>
+  } 
 </div>
 
-<table>
+
+<div>
+  <label class="search" for="search">Search:</label>
+  <input class="search-input" id="search" type="text" [(ngModel)]="search" />
+  <!-- Khi nhn vào button thì hàm searchFilm() được gọi -->
+  <button (click)="searchFilm()" class="searchBtn">Search</button>
+</div>
+<table class="table">
   <thead>
     <tr>
-      <td>tieu de</td>
-      <td>so luong tap</td>
-      <td>phat hanh</td>
-      <td>mieu ta</td>
-      <td>lich chieu</td>
+      <td><div class="cangiua">ID</div></td>
+      <td><div class="cangiua">Tiêu đề</div></td>
+      <td><div class="cangiua">Số lượng tập</div></td>
+      <td><div class="cangiua">Phát hành</div></td>
+      <td><div class="cangiua">Miêu tả</div></td>
+      <td><div class="cangiua">Lịch chiếu</div></td>
+      <td><div class="cangiua">Sửa</div></td>
     </tr>
   </thead>
   <tbody>
     @for (phim of listFilm; track $index) {
       <tr>
-        <td>{{ phim.tieude }}</td>
-        <td>{{ phim.soluongtap }}</td>
-        <td>{{ phim.phathanh }}</td>
-        <td>{{ phim.mieuta }}</td>
-        <td>{{ phim.lichchieu }}</td>
+        <td><div class="cangiuatap">{{ phim.id }}</div></td>
+        <td><div class="cangiuatap">{{ phim.tieude }}</div></td>
+        <td ><div class="cangiuatap">{{ phim.soluongtap }}</div></td>
+        <td><div class="cangiuatap">{{ phim.phathanh }}</div></td>
+        <td><div class="cangiuatap">{{ phim.mieuta }}</div></td>
+        <td><div class="cangiuatap">{{ phim.lichchieu }}</div></td>
         <td>
-          <button (click)="editFilm(phim)" class="editBtn">Edit</button>
-          <button (click)="deleteFilm(phim.tieude)" class="deleteBtn">Delete</button>
-        
+          <button  (click)="editFilm(phim)" class="editBtn">Cập nhật</button>
+          <button (click)="deleteFilm(phim.tieude)" class="deleteBtn">Xoá</button>
       </tr>
     }
   </tbody>
 </table>
+
+
+
